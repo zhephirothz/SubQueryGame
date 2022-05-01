@@ -5,6 +5,8 @@
   
   const game = new GameController();
   let frame = game.newGame();
+  let highestScore = localStorage.getItem("highestScore") || '0';
+  localStorage.setItem("highestScore", highestScore);
 
   function jump() {
     game.jump();
@@ -16,6 +18,10 @@
 
   setInterval(() => {
     frame = game.nextFrame();
+    if(frame.score){
+      highestScore = localStorage.getItem("highestScore") || '0';
+      localStorage.setItem("highestScore", frame.score.toString());
+    }
   }, 1000 / 90);
 </script>
 
@@ -92,6 +98,7 @@
           {#if frame.gameOver}
           <h2 class="game-over">Game Over</h2>
           <h2 class="game-over">Score {frame.score}</h2>
+          <h2 class="game-over">Highest Score {highestScore}</h2>
           {/if}
           <button on:click="{startGame}">Start Game</button>
         </section>
@@ -99,4 +106,4 @@
 
         <section style="height: {frame.ground.height}px;" id="ground"></section>
 </main>
-<svelte:window on:click="{jump}" on:keydown="{jump}" />
+<svelte:window on:click="{jump}" on:keydown="{jump}" on:touchstart="{jump}" />

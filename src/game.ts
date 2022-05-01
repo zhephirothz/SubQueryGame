@@ -41,12 +41,15 @@ export class GameController {
   private velocity = 0;
 
   constructor(
-    public readonly height = 800,
-    public readonly width = 400,
+    //public readonly height = 800,
+    public readonly height = 700,
+    //public readonly width = 400,
+    public readonly width = 370,
     public readonly pipeWidth = 50,
     public pipeGap = 170,
     public readonly minTopForTopPipe = 50,
-    public readonly maxTopForTopPipe = 350,
+    //public readonly maxTopForTopPipe = 350,
+    public readonly maxTopForTopPipe = 300,
     public readonly generateNewPipePercent = 0.7,
     public readonly speed = 1,
     public readonly groundHeight = 20,
@@ -64,7 +67,6 @@ export class GameController {
     this.frame = {
       firstPipe,
       secondPipe,
-
       score: 0,
       width: this.width,
       height: this.height,
@@ -222,6 +224,9 @@ export class GameController {
   public jump() {
     if (this.velocity <= 0){
       this.velocity += this.jumpVelocity;
+    }
+    if (this.frame.gameOver){
+      this.start();
     }
   }
 

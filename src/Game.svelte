@@ -18,8 +18,8 @@
 
   setInterval(() => {
     frame = game.nextFrame();
-    if(frame.score){
-      highestScore = localStorage.getItem("highestScore") || '0';
+    highestScore = localStorage.getItem("highestScore");
+    if(frame.score > parseInt(highestScore)){
       localStorage.setItem("highestScore", frame.score.toString());
     }
   }, 1000 / 90);
